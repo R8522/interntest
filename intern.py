@@ -30,22 +30,3 @@ st.dataframe(df.head())
 st.subheader("Summary Statistics")
 st.write(df.describe())
 
-# Correlation Heatmap
-st.subheader("Correlation Heatmap")
-fig, ax = plt.subplots(figsize=(10, 6))
-sns.heatmap(df.select_dtypes(include=['number']).corr(), annot=True, cmap="coolwarm", ax=ax)
-st.pyplot(fig)
-
-# Interactive Bar Chart
-st.subheader("Bar Chart of a Numeric Column")
-numeric_columns = df.select_dtypes(include=['number']).columns.tolist()
-if numeric_columns:
-    selected_column = st.selectbox("Select Column", numeric_columns)
-    fig, ax = plt.subplots()
-    df[selected_column].hist(bins=20, ax=ax)
-    st.pyplot(fig)
-else:
-    st.warning("No numeric columns found.")
-
-# Run with: streamlit run app.py
-
