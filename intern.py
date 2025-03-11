@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # GitHub Raw URL (Replace this with your actual file URL)
-GITHUB_RAW_URL = "STATISTIK 1 - Kumulatif Keahlian.xlsx"
+GITHUB_RAW_URL = "https://github.com/R8522/interntest/blob/main/STATISTIK%201%20-%20Kumulatif%20Keahlian.xlsx"
 
 @st.cache_data
 def load_data():
