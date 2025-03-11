@@ -1,31 +1,47 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 
-# Load Data
+# GitHub Raw URL (Replace this with your actual file URL)
+GITHUB_RAW_URL = "https://github.com/R8522/interntest/blob/main/STATISTIK%201%20-%20Kumulatif%20Keahlian.xlsx"
+
 @st.cache_data
 def load_data():
-    df = pd.read_excel("/content/drive/MyDrive/intern/STATISTIK 1 - Kumulatif Keahlian.xlsx")
+    """Load dataset from GitHub."""
+    df = pd.read_excel(GITHUB_RAW_URL)
+
+    # Fill missing numerical values with mean
+    for col in df.select_dtypes(include=['number']):
+        df[col] = df[col].fillna(df[col].mean())
+
+    # Fill missing categorical values with mode
+    for col in df.select_dtypes(include=['object']):
+        df[col] = df[col].fillna(df[col].mode()[0])
+
+    # Remove duplicates
+    df.drop_duplicates(inplace=True)
+
     return df
 
+# Load and clean the data
 df = load_data()
 
-# Sidebar Filters
-st.sidebar.header("Filters")
-if 'year' in df.columns:
-    years = df['year'].dropna().unique()
-    selected_year = st.sidebar.selectbox("Select Year", years)
-    df = df[df['year'] == selected_year]
+# Streamlit App Layout
+st.title("📊 Statistik 1 - Kumulatif Keahlian Dashboard")
 
-# Dashboard Title
-st.title("📊 Data Dashboard")
+# Display dataframe
+st.subheader("Cleaned Data Preview")
+st.dataframe(df)
 
-# Show Data Preview
-st.subheader("Dataset Preview")
-st.dataframe(df.head())
+# Display missing values count
+st.subheader("Missing Values Summary")
+st.write(df.isnull().sum())
 
-# Show Summary Statistics
-st.subheader("Summary Statistics")
+# Display summary statistics
+st.subheader("Dataset Summary Statistics")
 st.write(df.describe())
 
+# Additional Filters (Optional)
+st.subheader("Filter Data by Location")
+selected_location = st.selectbox("Choose a location:", df["LOKASI PARLIMEN"].unique())
+filtered_df = df[df["LOKASI PARLIMEN"] == selected_location]
+st.dataframe(filtered_df)
