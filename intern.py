@@ -22,9 +22,6 @@ def load_data():
 
     return df
 
-# Load and clean the data
-df = load_data()
-
 # Streamlit App Layout
 st.title("📊 Statistik 1 - Kumulatif Keahlian Dashboard")
 
