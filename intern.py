@@ -6,7 +6,7 @@ import seaborn as sns
 # Load Data
 @st.cache_data
 def load_data():
-    df = pd.read_excel("(PNM) DATA TAHUNAN 2024 (EDIT T).xlsx", header=1)  # Adjust header if needed
+    df = pd.read_excel((PNM) DATA TAHUNAN 2024 (EDIT T).xlsx)
     df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_')  # Clean column names
     return df
 
