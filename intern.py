@@ -6,8 +6,7 @@ import seaborn as sns
 # Load Data
 @st.cache_data
 def load_data():
-    df = pd.read_excel("(PNM) DATA TAHUNAN 2024 (EDIT T).xlsx' )
-    df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_')  # Clean column names
+    df = pd.read_excel("/content/drive/MyDrive/intern/STATISTIK 1 - Kumulatif Keahlian.xlsx")
     return df
 
 df = load_data()
